@@ -20,7 +20,6 @@ Route::get('/', [
 ]);
 
 Route::get('/2', [
-   // 'middleware' => 'cors1',
     'uses' => function () {
         return view('welcome');
     }
@@ -39,4 +38,23 @@ Route::get('user/index', [
 Route::get('student/index', [
     'middleware' => 'cors',
     'uses'       => 'StudentsController@index'
+]);
+
+Route::post('student/create', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@create'
+]);
+
+Route::post('student/update', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@update'
+]);
+
+Route::post('student/destory', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@destory'
+]);
+
+Route::get('classEntry', [
+    'uses'       => 'ClassEntryController@index'
 ]);
