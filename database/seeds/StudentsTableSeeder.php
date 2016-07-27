@@ -11,16 +11,25 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 10; $i++)
+        //年级1到6
+        for($i = 1; $i <= 6; $i++)
         {
-            DB::table('students')->insert([
-            'student_number' => str_random(15),
-            'student_name' => str_random(5),
-            //'student_password' => bcrypt('secret'),
-            'student_entry_year' => mt_rand(2010, 2016),
-            'student_grade' => mt_rand (1, 6),
-            'student_class' => mt_rand (1, 14),
-            ]);
+            //班级1到4
+            for($j = 1; $j <= 4; $j++)
+            {
+                for($k = 0; $k < 10; $k++)
+                {
+                    DB::table('students')->insert([
+                    'student_number' => str_random(5) . '0000' . $k,
+                    'student_name' => str_random(5),
+                    //'student_password' => bcrypt('secret'),
+                    'student_entry_year' => 2015 - $i,
+                    'student_grade' => $i,
+                    'student_class' => $j,
+                    ]);
+                }
+            }
         }
+        
     }
 }

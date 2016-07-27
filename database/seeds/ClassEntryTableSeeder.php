@@ -5,7 +5,7 @@ use Illuminate\Database\Seeder;
 class ClassEntryTableSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * 生成1到6年级，每个年级4个班
      *
      * @return void
      */

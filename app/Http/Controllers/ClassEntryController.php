@@ -16,6 +16,28 @@ class ClassEntryController extends Controller
         return ClassEntry::all();
     }
     
+    public function gradeClasses()
+    {
+        $gradeClasses = [];
+        $classes = [];
+        
+        $grades = ClassEntry::select('gradeNum')->distinct()->get();
+        
+        foreach ($grades as $grade)
+        {
+            //dump($grade["gradeNum"]);
+            $gradeClasses[$grade["gradeNum"]] = [];
+            $classes = ClassEntry::select('classNum')->distinct()->get();
+            
+            foreach($classes as $class)
+            {
+                array_push($gradeClasses[$grade["gradeNum"]], $class["classNum"]);
+            }
+        }
+        
+        return $gradeClasses;
+    }
+    
     public function create(Request $request)
     {
         

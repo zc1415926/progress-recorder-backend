@@ -58,3 +58,7 @@ Route::post('student/destory', [
 Route::get('classEntry', [
     'uses'       => 'ClassEntryController@index'
 ]);
+
+Route::get('gradeClasses', [
+    'uses'       => 'ClassEntryController@gradeClasses'
+]);
