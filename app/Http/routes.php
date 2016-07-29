@@ -40,6 +40,11 @@ Route::get('student/index', [
     'uses'       => 'StudentsController@index'
 ]);
 
+Route::get('student/{grade}/{class}', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@getStudentByGradeClass'
+]);
+
 Route::post('student/create', [
     'middleware' => 'cors',
     'uses'       => 'StudentsController@create'
@@ -60,5 +65,6 @@ Route::get('classEntry', [
 ]);
 
 Route::get('gradeClasses', [
+    'middleware' => 'cors',
     'uses'       => 'ClassEntryController@gradeClasses'
 ]);

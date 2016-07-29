@@ -20,6 +20,14 @@ class StudentsController extends Controller
     {
         return Students::all();
     }
+    
+    public function getStudentByGradeClass($grade, $class)
+    {
+        $student = Students::where('student_grade', $grade)
+            ->where('student_class', $class)->get();
+            
+        return $student;
+    }
 
     public function create(Request $request)
     {
