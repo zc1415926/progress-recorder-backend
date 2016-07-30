@@ -55,9 +55,9 @@ Route::post('student/update', [
     'uses'       => 'StudentsController@update'
 ]);
 
-Route::post('student/destory', [
+Route::post('student/delete', [
     'middleware' => 'cors',
-    'uses'       => 'StudentsController@destory'
+    'uses'       => 'StudentsController@delete'
 ]);
 
 Route::get('classEntry', [

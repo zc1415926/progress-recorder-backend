@@ -31,20 +31,22 @@ class StudentsController extends Controller
 
     public function create(Request $request)
     {
-        if(Students::create([
-            'student_number'        => $request['student_number'],
-            'student_name'          => $request['student_name'],
-            'student_password'      => $request['student_password'],
-            'student_entry_year'    => $request['student_entry_year'],
-            'student_grade'         => $request['student_grade'],
-            'student_class'         => $request['student_class'],
-            ]))
+        $student = Students::create([
+            'student_number'        => $request['data']['student_number'],
+            'student_name'          => $request['data']['student_name'],
+            //'student_password'      => $request['data']['student_password'],
+            'student_entry_year'    => $request['data']['student_entry_year'],
+            'student_grade'         => $request['data']['student_grade'],
+            'student_class'         => $request['data']['student_class'],
+            ]);
+            
+        if($student)
         {
-            return 'success';
+            return response()->json(['status' => 'success', 'data' => $student]);
         }
         else
         {
-            return 'failure';
+            return response()->json(['status' => 'failure', 'data' => $student]);
         }
         
     }
@@ -55,8 +57,17 @@ class StudentsController extends Controller
     }
 
   
-    public function destory($id)
+    public function delete(Request $request)
     {
-        return 'destory a student';
+        $student = Students::where('student_number', $request['data'])->delete();
+        
+        if($student)
+        {
+            return response()->json(['status' => 'success', 'data' => $request['data']]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => $student]);
+        }
     }
 }
