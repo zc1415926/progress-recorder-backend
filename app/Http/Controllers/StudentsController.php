@@ -53,7 +53,20 @@ class StudentsController extends Controller
 
     public function update(Request $request)
     {
-        return 'update a student';
+        $student = Students::where('student_number', $request['data']['student_number'])
+                           ->update(['student_name' => $request['data']['student_name'],
+                                     'student_entry_year' => $request['data']['student_entry_year'],
+                                     'student_grade' => $request['data']['student_grade'],
+                                     'student_class' => $request['data']['student_class']]);
+        
+        if($student)
+        {
+            return response()->json(['status' => 'success', 'data' => $request['data']]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => $student]);
+        }
     }
 
   
