@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Seeder;
 
-class ClassEntryTableSeeder extends Seeder
+class GradeClassesTableSeeder extends Seeder
 {
     /**
-     * 生成1到6年级，每个年级4个班
+     * Run the database seeds.
      *
      * @return void
      */
@@ -17,7 +17,8 @@ class ClassEntryTableSeeder extends Seeder
             //班级1到4
             for($j = 1; $j <= 4; $j++)
             {
-                DB::table('classEntry')->insert([
+                DB::table('gradeClasses')->insert([
+                    //年和班的字符串连接成为班级代码
                     'classCode' => (date("Y") - 1 - $i) . '0' . $j,
                     'entryYear' => (date("Y") - 1 - $i),
                     'gradeNum' => $i,

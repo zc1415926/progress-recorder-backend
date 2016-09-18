@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClassEntryTable extends Migration
+class CreateGradeClassesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,8 +12,7 @@ class CreateClassEntryTable extends Migration
      */
     public function up()
     {
-        Schema::create('classEntry', function (Blueprint $table) {
-            
+        Schema::create('gradeClasses', function (Blueprint $table) {
             $table->string('classCode')->unique()->primary();
             $table->string('entryYear');
             $table->string('gradeNum');
@@ -29,6 +28,6 @@ class CreateClassEntryTable extends Migration
      */
     public function down()
     {
-        Schema::drop('classEntry');
+        Schema::drop('gradeClasses');
     }
 }

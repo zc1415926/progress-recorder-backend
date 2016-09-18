@@ -60,11 +60,21 @@ Route::post('student/delete', [
     'uses'       => 'StudentsController@delete'
 ]);
 
-Route::get('classEntry', [
+/*Route::get('classEntry', [
     'uses'       => 'ClassEntryController@index'
-]);
+]);*/
 
 Route::get('gradeClasses', [
     'middleware' => 'cors',
-    'uses'       => 'ClassEntryController@gradeClasses'
+    'uses'       => 'GradeClassController@index'
+]);
+
+Route::post('gradeClasses/create', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@create'
+]);
+
+Route::post('gradeClasses/delete', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@delete'
 ]);
