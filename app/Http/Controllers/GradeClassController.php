@@ -50,6 +50,26 @@ class GradeClassController extends Controller
         }
     }
     
+    public function update(Request $request)
+    {
+        $classCode = $request['data']['classCode'];
+        
+        $gradeClass = GradeClass::where('classCode', $classCode)->update([
+                                    'entryYear'     => $request['data']['entryYear'],
+                                    'gradeNum'      => $request['data']['gradeNum'],
+                                    'classNum'      => $request['data']['classNum']]);
+                                    
+        if($gradeClass)
+        {
+            return response()->json(['status' => 'success', 'data' => $request['data']]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => $gradeClass]);
+        }
+        
+    }
+    
     public function delete(Request $request)
     {
         $gradeClass = GradeClass::where('classCode', $request['data'])->delete();
@@ -57,6 +77,42 @@ class GradeClassController extends Controller
         if($gradeClass)
         {
             return response()->json(['status' => 'success', 'data' => $request['data']]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => $gradeClass]);
+        }
+    }
+    
+    public function getGrades()
+    {
+        $tempGrades = GradeClass::select('gradeNum')->distinct()->orderBy('gradeNum', 'asc')->get();
+        $grades = [];
+        
+        foreach ($tempGrades as $grade) 
+        {
+            array_push($grades, $grade['gradeNum']);
+        }
+        
+        return $grades;
+    }
+    
+    public function getClassesByGradeNum(Request $request)
+    {
+        
+        
+        $tempClasses = GradeClass::select('classNum')->where('gradeNum', $request['data'])
+        ->orderBy('classNum', 'asc')->get();
+        
+        $classes = [];
+        foreach($tempClasses as $class)
+        {
+            array_push($classes, $class['classNum']);
+        }
+        
+        if($classes)
+        {
+            return response()->json(['status' => 'success', 'data' => $classes]);
         }
         else 
         {

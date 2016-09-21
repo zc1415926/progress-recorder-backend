@@ -74,7 +74,22 @@ Route::post('gradeClasses/create', [
     'uses'       => 'GradeClassController@create'
 ]);
 
+Route::post('gradeClasses/update', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@update'
+]);
+
 Route::post('gradeClasses/delete', [
     'middleware' => 'cors',
     'uses'       => 'GradeClassController@delete'
+]);
+
+Route::get('gradeClasses/getGrades', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@getGrades'
+]);
+
+Route::post('gradeClasses/getClassesByGradeNum', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@getClassesByGradeNum'
 ]);
