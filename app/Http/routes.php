@@ -93,3 +93,24 @@ Route::post('gradeClasses/getClassesByGradeNum', [
     'middleware' => 'cors',
     'uses'       => 'GradeClassController@getClassesByGradeNum'
 ]);
+
+/*Route::group(['prefix' => 'auth'], function()
+{
+    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+    Route::post('authenticate', 'AuthenticateController@authenticate');
+});*/
+
+Route::get('auth/authenticate', [
+    'middleware' => 'cors',
+    'uses'       => 'AuthenticateController@index'
+]);
+
+Route::post('auth/authenticate', [
+    'middleware' => 'cors',
+    'uses'       => 'AuthenticateController@authenticate'
+]);
+
+Route::get('users', [
+    'middleware' => 'cors',
+    'uses'       => 'AuthenticateController@users'
+]);
