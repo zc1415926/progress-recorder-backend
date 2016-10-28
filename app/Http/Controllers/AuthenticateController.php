@@ -9,13 +9,14 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
 use App\User;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticateController extends Controller
 {
 
     public function __construct()
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+       // $this->middleware('jwt.auth', ['except' => ['authenticate']]);
     }
     
     public function index()
@@ -47,5 +48,33 @@ class AuthenticateController extends Controller
 
         // if no errors are encountered we can return a JWT
         return response()->json(compact('token'));
+    }
+    
+    public function getUserFromToken(Request $request)
+    {
+        $token = $request->only('token')['token'];
+
+        try {
+
+            if (! $user = JWTAuth::parseToken()->authenticate($token)) {
+                return response()->json(['user_not_found'], 404);
+            }
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+    
+            return response()->json(['token_expired'], $e->getStatusCode());
+    
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+    
+            return response()->json(['token_invalid'], $e->getStatusCode());
+    
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+    
+            return response()->json(['token_absent'], $e->getStatusCode());
+    
+        }
+    
+        // the token is valid and we have found the user via the sub claim
+        return response()->json(compact('user'));
     }
 }

@@ -110,6 +110,11 @@ Route::post('auth/authenticate', [
     'uses'       => 'AuthenticateController@authenticate'
 ]);
 
+Route::get('auth/getUserFromToken', [
+    'middleware' => 'cors',
+    'uses'       => 'AuthenticateController@getUserFromToken'
+]);
+
 Route::get('users', [
     'middleware' => 'cors',
     'uses'       => 'AuthenticateController@users'
