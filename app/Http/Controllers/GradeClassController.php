@@ -10,6 +10,11 @@ use App\GradeClass;
 
 class GradeClassController extends Controller
 {
+    public function __construct()
+    {
+       $this->middleware('jwt.auth');
+    }
+    
     public function index()
     {
         return GradeClass::all();
