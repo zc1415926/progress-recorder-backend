@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Students;
 
 class StudentsTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class StudentsTableSeeder extends Seeder
      */
     public function run()
     {
+        dump('sb');
+                    
         //年级1到6
         for($i = 1; $i <= 6; $i++)
         {
@@ -19,13 +22,10 @@ class StudentsTableSeeder extends Seeder
             {
                 for($k = 0; $k < 10; $k++)
                 {
-                    DB::table('students')->insert([
+                    Students::create([
                     'student_number' => str_random(5) . '0000' . $k,
                     'student_name' => str_random(5),
-                    //'student_password' => bcrypt('secret'),
-                    'student_entry_year' => 2015 - $i,
-                    'student_grade' => $i,
-                    'student_class' => $j,
+                    'classCode' => (2016 - $i) . '0' . $j,
                     ]);
                 }
             }

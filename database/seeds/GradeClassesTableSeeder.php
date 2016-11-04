@@ -19,8 +19,8 @@ class GradeClassesTableSeeder extends Seeder
             {
                 DB::table('gradeClasses')->insert([
                     //年和班的字符串连接成为班级代码
-                    'classCode' => (date("Y") - 1 - $i) . '0' . $j,
-                    'entryYear' => (date("Y") - 1 - $i),
+                    'classCode' => (2016 - $i) . '0' . $j,
+                    'entryYear' => (2016 - $i),
                     'gradeNum' => $i,
                     'classNum' => $j
                 ]);

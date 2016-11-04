@@ -17,9 +17,10 @@ class CreateStudentsTable extends Migration
             $table->string('student_number')->unique();
             $table->string('student_name');
             //$table->string('student_password', 60);
-            $table->smallInteger('student_entry_year');
-            $table->tinyInteger('student_grade');
-            $table->tinyInteger('student_class');
+            //$table->smallInteger('student_entry_year');
+            //$table->tinyInteger('student_grade');
+            //$table->tinyInteger('student_class');
+            $table->string('classCode');
             $table->rememberToken();
             $table->timestamps();
         });

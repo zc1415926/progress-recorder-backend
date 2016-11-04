@@ -8,9 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Students;
+use App\GradeClass;
 
 class StudentsController extends Controller
 {
+    public function __construct()
+    {
+       //$this->middleware('jwt.auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -21,10 +26,17 @@ class StudentsController extends Controller
         return Students::all();
     }
     
+    private function getClassCode($grade, $class)
+    {
+        $classCode = GradeClass::select('classCode')->where('gradeNum', $grade)
+                                ->where('classNum', $class)->get();
+                                
+        return $classCode[0]['classCode'];
+    }
+    
     public function getStudentByGradeClass($grade, $class)
     {
-        $student = Students::where('student_grade', $grade)
-            ->where('student_class', $class)->get();
+        $student = Students::where('classCode', StudentsController::getClassCode($grade, $class))->get();
             
         return $student;
     }
