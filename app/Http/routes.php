@@ -40,6 +40,11 @@ Route::get('student/index', [
     'uses'       => 'StudentsController@index'
 ]);
 
+Route::get('student/{classCode}', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@getStudentByClassCode'
+]);
+
 Route::get('student/{grade}/{class}', [
     'middleware' => 'cors',
     'uses'       => 'StudentsController@getStudentByGradeClass'
@@ -59,10 +64,6 @@ Route::post('student/delete', [
     'middleware' => 'cors',
     'uses'       => 'StudentsController@delete'
 ]);
-
-/*Route::get('classEntry', [
-    'uses'       => 'ClassEntryController@index'
-]);*/
 
 Route::get('gradeClasses', [
     'middleware' => 'cors',
@@ -92,6 +93,11 @@ Route::get('gradeClasses/getGrades', [
 Route::post('gradeClasses/getClassesByGradeNum', [
     'middleware' => 'cors',
     'uses'       => 'GradeClassController@getClassesByGradeNum'
+]);
+
+Route::get('gradeClasses/getClassCode', [
+    'middleware' => 'cors',
+    'uses'       => 'GradeClassController@getClassCode'
 ]);
 
 /*Route::group(['prefix' => 'auth'], function()

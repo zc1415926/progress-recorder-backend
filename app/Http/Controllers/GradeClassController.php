@@ -101,6 +101,13 @@ class GradeClassController extends Controller
         
         return $grades;
     }
+    public static function getClassCode($grade, $class)
+    {
+        $classCode = GradeClass::select('classCode')->where('gradeNum', $grade)
+                                ->where('classNum', $class)->get();
+                                
+        return $classCode[0]['classCode'];
+    }
     
     public function getClassesByGradeNum(Request $request)
     {

@@ -6,50 +6,53 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\GradeClassController;
 
 use App\Students;
-use App\GradeClass;
 
 class StudentsController extends Controller
 {
     public function __construct()
     {
-       //$this->middleware('jwt.auth');
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return Students::all();
-    }
-    
-    private function getClassCode($grade, $class)
-    {
-        $classCode = GradeClass::select('classCode')->where('gradeNum', $grade)
-                                ->where('classNum', $class)->get();
-                                
-        return $classCode[0]['classCode'];
+       $this->middleware('jwt.auth');
     }
     
     public function getStudentByGradeClass($grade, $class)
     {
-        $student = Students::where('classCode', StudentsController::getClassCode($grade, $class))->get();
-            
-        return $student;
+        $classCode = GradeClassController::getClassCode($grade, $class);
+        $student = Students::where('classCode', $classCode)->get();
+
+        if($classCode && $student)
+        {
+            return response()->json(['status' => 'success', 'data' => compact('classCode', 'student')]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => '']);
+        }
+    }
+    
+    public function getStudentByClassCode($classCode)
+    {
+        $student = Students::where('classCode', $classCode)->get();
+
+        if($classCode && $student)
+        {
+            return response()->json(['status' => 'success', 'data' => compact('classCode', 'student')]);
+        }
+        else 
+        {
+            return response()->json(['status' => 'failure', 'data' => '']);
+        }
     }
 
     public function create(Request $request)
     {
+        //如果主键重复的处理
         $student = Students::create([
             'student_number'        => $request['data']['student_number'],
             'student_name'          => $request['data']['student_name'],
-            //'student_password'      => $request['data']['student_password'],
-            'student_entry_year'    => $request['data']['student_entry_year'],
-            'student_grade'         => $request['data']['student_grade'],
-            'student_class'         => $request['data']['student_class'],
+            'classCode'         => $request['data']['classCode']
             ]);
             
         if($student)
@@ -66,10 +69,7 @@ class StudentsController extends Controller
     public function update(Request $request)
     {
         $student = Students::where('student_number', $request['data']['student_number'])
-                           ->update(['student_name' => $request['data']['student_name'],
-                                     'student_entry_year' => $request['data']['student_entry_year'],
-                                     'student_grade' => $request['data']['student_grade'],
-                                     'student_class' => $request['data']['student_class']]);
+                           ->update(['student_name' => $request['data']['student_name']]);
         
         if($student)
         {
