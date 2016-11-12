@@ -13,7 +13,7 @@ class CreateGradeClassesTable extends Migration
     public function up()
     {
         Schema::create('gradeClasses', function (Blueprint $table) {
-            $table->string('classCode')->unique()->primary();
+            $table->string('classCode')->unique();
             $table->string('entryYear');
             $table->string('gradeNum');
             $table->string('classNum');
