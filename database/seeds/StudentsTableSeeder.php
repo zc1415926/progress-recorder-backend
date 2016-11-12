@@ -22,14 +22,14 @@ class StudentsTableSeeder extends Seeder
             {
                 for($k = 0; $k < 10; $k++)
                 {
+                    $classCode = (2016 - $i) . '0' . $j;
                     Students::create([
-                    'student_number' => str_random(5) . '0000' . $k,
+                    'student_number' => $classCode . '0' . $k,
                     'student_name' => str_random(5),
-                    'classCode' => (2016 - $i) . '0' . $j,
+                    'classCode' => $classCode,
                     ]);
                 }
             }
         }
-        
     }
 }
