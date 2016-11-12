@@ -13,16 +13,16 @@ class CreateStudentsTable extends Migration
     public function up()
     {
         Schema::create('students', function (Blueprint $table) {
-            $table->increments('id');
             $table->string('student_number')->unique();
             $table->string('student_name');
-            //$table->string('student_password', 60);
-            //$table->smallInteger('student_entry_year');
-            //$table->tinyInteger('student_grade');
-            //$table->tinyInteger('student_class');
             $table->string('classCode');
-            $table->rememberToken();
             $table->timestamps();
+            
+            $table->foreign('classCode')
+                  ->references('classCode')
+                  ->on('gradeClasses')
+                  ->onDelete('cascade');
+            $table->index('classCode');
         });
     }
 
