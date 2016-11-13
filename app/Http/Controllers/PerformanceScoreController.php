@@ -15,9 +15,17 @@ class PerformanceScoreController extends Controller
         return \App\PerformanceScore::all();
     }
     
-    public function getByStudentNumber($studentNumber)
+    public function getRecordsByStudentNumber($studentNumber)
     {
         $records = PerformanceScore::where('student_number', $studentNumber)->get();
-        return $records;
+        
+        if($records)
+        {
+            return response()->json(['status' => 'success', 'data' => $records]);
+        }
+        else
+        {
+            return response()->json(['status' => 'failure']);
+        }
     }
 }

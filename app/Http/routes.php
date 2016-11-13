@@ -132,9 +132,9 @@ Route::get('performance_score/index', [
     'uses'       => 'PerformanceScoreController@index'
 ]);
 
-Route::get('performanceScore/getByStudentNumber/{studentNumber}', [
+Route::get('performanceScore/getRecordsByStudentNumber/{studentNumber}', [
     'middleware' => 'cors',
-    'uses'       => 'PerformanceScoreController@getByStudentNumber'
+    'uses'       => 'PerformanceScoreController@getRecordsByStudentNumber'
 ]);
 
 Route::get('users', [
