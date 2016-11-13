@@ -65,6 +65,11 @@ Route::post('student/delete', [
     'uses'       => 'StudentsController@delete'
 ]);
 
+Route::get('student/dashboard/{grade}/{class}', [
+    'middleware' => 'cors',
+    'uses'       => 'StudentsController@dashboardStudentsByGradeClass'
+]);
+
 Route::get('gradeClasses', [
     'middleware' => 'cors',
     'uses'       => 'GradeClassController@index'
