@@ -126,6 +126,17 @@ Route::get('auth/getUserFromToken', [
     'uses'       => 'AuthenticateController@getUserFromToken'
 ]);
 
+//performance score routes
+Route::get('performance_score/index', [
+    'middleware' => 'cors',
+    'uses'       => 'PerformanceScoreController@index'
+]);
+
+Route::get('performanceScore/getByStudentNumber/{studentNumber}', [
+    'middleware' => 'cors',
+    'uses'       => 'PerformanceScoreController@getByStudentNumber'
+]);
+
 Route::get('users', [
     'middleware' => 'cors',
     'uses'       => 'AuthenticateController@users'
