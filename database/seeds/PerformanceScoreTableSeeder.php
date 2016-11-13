@@ -21,11 +21,16 @@ class PerformanceScoreTableSeeder extends Seeder
                 for($k = 0; $k < 10; $k++)
                 {
                     $classCode = (2016 - $i) . '0' . $j;
-                    PerformanceScore::create([
-                        'delta_score' => rand(-10, 10),
-                        'comment' => str_random(rand(10, 20)),
-                        'student_number' => $classCode . '0' . $k
-                    ]);
+                    $recordCount = rand(1, 3);
+                    for($l = 0; $l < $recordCount; $l++)
+                    {
+                        PerformanceScore::create([
+                            'delta_score' => rand(-10, 10),
+                            'comment' => str_random(rand(5, 20)),
+                            'student_number' => $classCode . '0' . $k
+                        ]);
+                    }
+                    
                 }
             }
         }
