@@ -21,6 +21,7 @@ class PerformanceScoreTableSeeder extends Seeder
                 for($k = 0; $k < 10; $k++)
                 {
                     $classCode = (2016 - $i) . '0' . $j;
+                    //give a student 1 to 3 record randomly
                     $recordCount = rand(1, 3);
                     for($l = 0; $l < $recordCount; $l++)
                     {
