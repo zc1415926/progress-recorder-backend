@@ -17,6 +17,7 @@ dump('sb');
 
         $this->call(GradeClassesTableSeeder::class);
         $this->call(StudentsTableSeeder::class);
+        $this->call(PerformanceScoreTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         Model::reguard();
     }
