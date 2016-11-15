@@ -25,10 +25,10 @@ class StudentsController extends Controller
         $classCode = GradeClassController::getClassCode($grade, $class);
 
         $dashboard = DB::table('students')
-                        ->join('performance_score', 'students.student_number', '=', 'performance_score.student_number')
+                        ->join('performance', 'students.student_number', '=', 'performance.student_number')
                         ->select('students.student_number', 'students.student_name',
-                            DB::raw('SUM(performance_score.delta_score) as total_performance_score'))
-                        ->groupBy('performance_score.student_number')    
+                            DB::raw('SUM(performance.delta_score) as total_score'))
+                        ->groupBy('performance.student_number')    
                         ->where('students.classCode', $classCode)
                         ->get();
                         

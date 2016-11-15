@@ -127,14 +127,14 @@ Route::get('auth/getUserFromToken', [
 ]);
 
 //performance score routes
-Route::get('performance_score/index', [
+Route::get('performance/index', [
     'middleware' => 'cors',
-    'uses'       => 'PerformanceScoreController@index'
+    'uses'       => 'PerformanceController@index'
 ]);
 
-Route::get('performance_score/records_by_student_number/{studentNumber}', [
+Route::get('performance/records_by_student_number/{studentNumber}', [
     'middleware' => 'cors',
-    'uses'       => 'PerformanceScoreController@getRecordsByStudentNumber'
+    'uses'       => 'PerformanceController@getRecordsByStudentNumber'
 ]);
 
 Route::get('users', [

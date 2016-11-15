@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\PerformanceScore;
+use App\Performance;
 
-class PerformanceScoreTableSeeder extends Seeder
+class PerformanceTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -25,7 +25,7 @@ class PerformanceScoreTableSeeder extends Seeder
                     $recordCount = rand(1, 3);
                     for($l = 0; $l < $recordCount; $l++)
                     {
-                        PerformanceScore::create([
+                        Performance::create([
                             'delta_score' => rand(-10, 10),
                             'comment' => str_random(rand(5, 20)),
                             'student_number' => $classCode . '0' . $k

@@ -6,21 +6,21 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\PerformanceScore;
+use App\Performance;
 
-class PerformanceScoreController extends Controller
+class PerformanceController extends Controller
 {
     function index()
     {
-        return \App\PerformanceScore::all();
+        return \App\Performance::all();
     }
     
     public function getRecordsByStudentNumber($studentNumber)
     {
-        $records = PerformanceScore::where('student_number', $studentNumber)->get();
+        $records = Performance::where('student_number', $studentNumber)->get();
         
         $response = [
-            'msg' => 'Performance score retrived',
+            'msg' => 'Performances retrived',
             'records' => $records
         ];
         

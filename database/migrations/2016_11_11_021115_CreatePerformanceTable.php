@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePerformanceScoreTable extends Migration
+class CreatePerformanceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePerformanceScoreTable extends Migration
      */
     public function up()
     {
-        Schema::create('performance_score', function(Blueprint $table){
+        Schema::create('performance', function(Blueprint $table){
             $table->increments('id');
             $table->tinyInteger('delta_score');
             $table->string('comment');
@@ -34,6 +34,6 @@ class CreatePerformanceScoreTable extends Migration
      */
     public function down()
     {
-        Schema::drop('performance_score');
+        Schema::drop('performance');
     }
 }
