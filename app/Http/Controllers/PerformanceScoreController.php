@@ -19,13 +19,11 @@ class PerformanceScoreController extends Controller
     {
         $records = PerformanceScore::where('student_number', $studentNumber)->get();
         
-        if($records)
-        {
-            return response()->json(['status' => 'success', 'data' => $records]);
-        }
-        else
-        {
-            return response()->json(['status' => 'failure']);
-        }
+        $response = [
+            'msg' => 'Performance score retrived',
+            'records' => $records
+        ];
+        
+        return response()->json($response, 200);
     }
 }
