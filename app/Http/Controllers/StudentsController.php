@@ -15,13 +15,11 @@ class StudentsController extends Controller
 {
     public function __construct()
     {
-       //$this->middleware('jwt.auth');
+       $this->middleware('jwt.auth');
     }
     
     public function dashboardStudentsByGradeClass($grade, $class)
     {
-        //return 'dashboard';
-        
         $classCode = GradeClassController::getClassCode($grade, $class);
 
         $dashboard = DB::table('students')
@@ -49,9 +47,9 @@ class StudentsController extends Controller
         $classCode = GradeClassController::getClassCode($grade, $class);
         $student = Students::where('classCode', $classCode)->get();
 
-        if($classCode && $student)
+        if($student)
         {
-            return response()->json(['status' => 'success', 'data' => compact('classCode', 'student')]);
+            return response()->json(['status' => 'success', 'data' => $student]);
         }
         else 
         {
@@ -76,35 +74,58 @@ class StudentsController extends Controller
     public function create(Request $request)
     {
         //如果主键重复的处理
+        $classCode = GradeClassController::getClassCode(
+            $request['data']['gradeNum'], 
+            $request['data']['classNum']);
+        
         $student = Students::create([
             'student_number'        => $request['data']['student_number'],
             'student_name'          => $request['data']['student_name'],
-            'classCode'         => $request['data']['classCode']
+            'classCode'         => $classCode
             ]);
-            
+        
         if($student)
         {
-            return response()->json(['status' => 'success', 'data' => $student]);
+            $response = [
+                'message' => 'Student Created',
+                'student' => $student
+            ];
+            
+            return response()->json($response, 201);
         }
         else
         {
-            return response()->json(['status' => 'failure', 'data' => $student]);
+            $response = [
+                'message' => 'Error with student create',
+            ];
+            
+            return response()->json($response, 400);
         }
         
     }
 
     public function update(Request $request)
     {
+        //找不到学号的情况
         $student = Students::where('student_number', $request['data']['student_number'])
                            ->update(['student_name' => $request['data']['student_name']]);
         
         if($student)
         {
-            return response()->json(['status' => 'success', 'data' => $request['data']]);
+            $response = [
+                'message' => 'Student updated',
+                'student' => $student
+            ];
+            
+            return response()->json($response, 201);
         }
-        else 
+        else
         {
-            return response()->json(['status' => 'failure', 'data' => $student]);
+            $response = [
+                'message' => 'Error with student update',
+            ];
+            
+            return response()->json($response, 400);
         }
     }
 
@@ -115,11 +136,19 @@ class StudentsController extends Controller
         
         if($student)
         {
-            return response()->json(['status' => 'success', 'data' => $request['data']]);
+            $response = [
+                'message' => 'Student deleted',
+            ];
+            
+            return response()->json($response, 204);
         }
-        else 
+        else
         {
-            return response()->json(['status' => 'failure', 'data' => $student]);
+            $response = [
+                'message' => 'Error with student delete',
+            ];
+            
+            return response()->json($response, 400);
         }
     }
 }
