@@ -8,6 +8,8 @@ class UsersTableSeeder extends Seeder
 {
     public function run()
     {
+        //Model::unguard() does temporarily disable the mass assignment protection of the model, 
+        //so you can seed all model properties.
         Model::unguard();
 
         DB::table('users')->delete();
