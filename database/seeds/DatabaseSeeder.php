@@ -20,6 +20,7 @@ dump('sb');
         $this->call(PerformanceTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(TermTableSeeder::class);
+        $this->call(ConfigTableSeeder::class);
         Model::reguard();
     }
 }
