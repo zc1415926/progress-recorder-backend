@@ -13,7 +13,7 @@ class ConfigTableSeeder extends Seeder
     public function run()
     {
         $items = array(
-                ['item' => 'current_term', 'value' => '20161'],
+                ['key' => 'current_term', 'value' => '20161'],
         );
         
         foreach ($items as $item)

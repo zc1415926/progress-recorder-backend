@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class Config extends Model
 {
     protected $table = 'config';
-    protected $fillable = ['item', 'value'];
+    protected $fillable = ['key', 'value'];
 }

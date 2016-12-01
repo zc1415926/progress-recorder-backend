@@ -141,3 +141,20 @@ Route::get('users', [
     'middleware' => 'cors',
     'uses'       => 'AuthenticateController@users'
 ]);
+
+//Term routes
+Route::get('terms', [
+    'middleware' => 'cors',
+    'uses'       => 'TermsController@index'
+]);
+
+Route::get('terms/current', [
+    'middleware' => 'cors',
+    'uses'       => 'TermsController@getCurrentTerm'
+]);
+
+//config routes
+Route::get('config/item/{key}', [
+    'middleware' => 'cors',
+    'uses'       => 'ConfigController@getConfig'
+]);

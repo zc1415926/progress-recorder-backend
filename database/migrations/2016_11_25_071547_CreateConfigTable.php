@@ -15,11 +15,11 @@ class CreateConfigTable extends Migration
         Schema::create('config', function(Blueprint $table){
         
             $table->increments('id');
-            $table->string('item');
+            $table->string('key');
             $table->string('value');
             $table->timestamps();
             
-            $table->index('item');
+            $table->index('key');
         });
     }
 
