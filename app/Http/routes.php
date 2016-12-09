@@ -153,6 +153,11 @@ Route::get('terms/current', [
     'uses'       => 'TermsController@getCurrentTerm'
 ]);
 
+Route::post('terms/create', [
+    'middleware' => 'cors',
+    'uses'       => 'TermsController@create'
+]);
+
 //config routes
 Route::get('config/item/{key}', [
     'middleware' => 'cors',

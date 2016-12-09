@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Validator;
 use App\Term;
 
 class TermsController extends Controller
@@ -72,5 +73,54 @@ class TermsController extends Controller
             
             return response()->json($response, 400);
         }
+    }
+    
+    public function create(Request $request)
+    {
+        $validator = Validator::make($request['data'], [
+            'year' => 'required',
+            'season' => 'required',
+        ]);
+
+        //validate input data
+        if ($validator->passes()) {
+            
+            $term = Term::create([
+                'term_code' => $request['data']['year'] . $request['data']['season'],
+                'year'      => $request['data']['year'],
+                'season'      => $request['data']['season'],
+            ]);
+            
+            //if term created successfully
+            if($term)
+            {
+                $response = [
+                    'message' => 'create term success',
+                    'term' => $term
+                ];
+                
+                $statusCode = 200;
+            }
+            else
+            {
+                $response = [
+                    'message' => 'create term failure'
+                ];
+                
+                $statusCode = 400;
+            }
+        }
+        else
+        {
+            $response = [
+                    'message' => 'create term failure',
+                    'errors'  => $validator->errors(),
+                    'input'   => $request['data']
+                ];
+                
+            $statusCode = 422;
+        }
+
+        return response()->json($response, $statusCode);
     }
 }
