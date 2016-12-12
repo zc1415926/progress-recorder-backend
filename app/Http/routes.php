@@ -153,9 +153,19 @@ Route::get('terms/current', [
     'uses'       => 'TermsController@getCurrentTerm'
 ]);
 
-Route::post('terms/create', [
+Route::post('term/create', [
     'middleware' => 'cors',
     'uses'       => 'TermsController@create'
+]);
+
+Route::post('term/delete', [
+    'middleware' => 'cors',
+    'uses'       => 'TermsController@delete'
+]);
+
+Route::post('term/set_current', [
+    'middleware' => 'cors',
+    'uses'       => 'TermsController@setCurrent'
 ]);
 
 //config routes

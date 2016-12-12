@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Validator;
 use App\Term;
+use App\Config;
 
 class TermsController extends Controller
 {
@@ -99,7 +100,7 @@ class TermsController extends Controller
                     'term' => $term
                 ];
                 
-                $statusCode = 200;
+                $statusCode = 201;
             }
             else
             {
@@ -114,6 +115,98 @@ class TermsController extends Controller
         {
             $response = [
                     'message' => 'create term failure',
+                    'errors'  => $validator->errors(),
+                    'input'   => $request['data']
+                ];
+                
+            $statusCode = 422;
+        }
+
+        return response()->json($response, $statusCode);
+    }
+    
+    public function delete(Request $request)
+    {
+        $validator = Validator::make($request['data'], [
+            'term_code' => 'required',
+        ]);
+
+        //validate input data
+        if ($validator->passes()) {
+            
+            $term = Term::where('term_code', $request['data']['term_code'])->delete();
+   
+            //if term created successfully
+            if($term)
+            {
+                $response = [
+                    'message' => 'term deletion successful',
+                ];
+                
+                $statusCode = 204;
+            }
+            else
+            {
+                $response = [
+                    'message' => 'term deletion failed'
+                ];
+                
+                $statusCode = 400;
+            }
+        }
+        else
+        {
+            $response = [
+                    'message' => 'data validation failed',
+                    'errors'  => $validator->errors(),
+                    'input'   => $request['data']
+                ];
+                
+            $statusCode = 422;
+        }
+
+        return response()->json($response, $statusCode);
+    }
+    
+    public function setCurrent(Request $request)
+    {
+        
+        $validator = Validator::make($request['data'], [
+            'term_code' => 'required',
+            'year' => 'required',
+            'season' => 'required',
+        ]);
+
+        //validate input data
+        if ($validator->passes()) {
+            
+            $currentTerm = Config::where('key', 'current_term')
+                                 ->update(['value' => $request['data']['term_code']]);
+            
+            //return $currentTerm;
+            //if term created successfully
+            if($currentTerm)
+            {
+                $response = [
+                    'message' => 'currentTerm update successful',
+                    'currentTerm' => $currentTerm
+                ];
+                
+                $statusCode = 201;
+            }
+            else
+            {
+                $response = [
+                    'message' => 'currentTerm update failed'
+                ];
+                
+                $statusCode = 400;
+            }
+        }
+        else
+        {
+            $response = [
+                    'message' => 'currentTerm validation failed',
                     'errors'  => $validator->errors(),
                     'input'   => $request['data']
                 ];
