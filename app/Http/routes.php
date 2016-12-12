@@ -143,29 +143,29 @@ Route::get('users', [
 ]);
 
 //Term routes
-Route::get('terms', [
+Route::get('term/index', [
     'middleware' => 'cors',
-    'uses'       => 'TermsController@index'
+    'uses'       => 'TermController@index'
 ]);
 
-Route::get('terms/current', [
+Route::get('term/current', [
     'middleware' => 'cors',
-    'uses'       => 'TermsController@getCurrentTerm'
+    'uses'       => 'TermController@getCurrentTerm'
 ]);
 
 Route::post('term/create', [
     'middleware' => 'cors',
-    'uses'       => 'TermsController@create'
+    'uses'       => 'TermController@create'
 ]);
 
 Route::post('term/delete', [
     'middleware' => 'cors',
-    'uses'       => 'TermsController@delete'
+    'uses'       => 'TermController@delete'
 ]);
 
 Route::post('term/set_current', [
     'middleware' => 'cors',
-    'uses'       => 'TermsController@setCurrent'
+    'uses'       => 'TermController@setCurrent'
 ]);
 
 //config routes

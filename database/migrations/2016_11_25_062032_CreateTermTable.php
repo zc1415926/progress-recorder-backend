@@ -12,7 +12,7 @@ class CreateTermTable extends Migration
      */
     public function up()
     {
-        Schema::create('terms', function(Blueprint $table){
+        Schema::create('term', function(Blueprint $table){
             $table->increments('id');
             //term_code = year . season
             $table->string('term_code', 5);
@@ -32,6 +32,6 @@ class CreateTermTable extends Migration
      */
     public function down()
     {
-        Schema::drop('terms');
+        Schema::drop('term');
     }
 }

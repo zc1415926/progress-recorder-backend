@@ -13,10 +13,6 @@ class TermTableSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
-
-        DB::table('terms')->delete();
-
         $terms = array(
                 ['term_code' => '20150', 'year' => '2015', 'season' => '0'],
                 ['term_code' => '20151', 'year' => '2015', 'season' => '1'],
@@ -28,7 +24,5 @@ class TermTableSeeder extends Seeder
         {
             Term::create($term);
         }
-
-        Model::reguard();
     }
 }

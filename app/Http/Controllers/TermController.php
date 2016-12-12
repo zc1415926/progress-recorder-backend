@@ -10,7 +10,7 @@ use Validator;
 use App\Term;
 use App\Config;
 
-class TermsController extends Controller
+class TermController extends Controller
 {
     public function __construct()
     {
