@@ -17,13 +17,25 @@ class CreatePerformanceTable extends Migration
             $table->tinyInteger('delta_score');
             $table->string('comment');
             $table->string('student_number');
+            $table->string('term_code');
             $table->timestamps();
+            
+            $table->index('student_number');
+            $table->index('term_code');
+            /*
+            外键会带来很多约束问题，先不用了
             
             $table->foreign('student_number')
                   ->references('student_number')
                   ->on('students')
                   ->onDelete('cascade');
-            $table->index('student_number');
+                  
+            
+            $table->foreign('term_code')
+                  ->references('term_code')
+                  ->on('term')
+                  ->onDelete('cascade');*/
+            
         });
     }
 

@@ -116,7 +116,6 @@ class TermController extends Controller
             $response = [
                     'message' => 'create term failure',
                     'errors'  => $validator->errors(),
-                    'input'   => $request['data']
                 ];
                 
             $statusCode = 422;
@@ -136,7 +135,6 @@ class TermController extends Controller
             
             $term = Term::where('term_code', $request['data']['term_code'])->delete();
    
-            //if term created successfully
             if($term)
             {
                 $response = [
@@ -183,8 +181,6 @@ class TermController extends Controller
             $currentTerm = Config::where('key', 'current_term')
                                  ->update(['value' => $request['data']['term_code']]);
             
-            //return $currentTerm;
-            //if term created successfully
             if($currentTerm)
             {
                 $response = [

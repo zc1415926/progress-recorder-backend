@@ -18,10 +18,14 @@ class CreateStudentsTable extends Migration
             $table->string('classCode');
             $table->timestamps();
             
+            /*
+            外键会带来很多约束问题，先不用了
             $table->foreign('classCode')
                   ->references('classCode')
                   ->on('gradeClasses')
                   ->onDelete('cascade');
+                  */
+                  
             $table->index('classCode');
         });
     }
