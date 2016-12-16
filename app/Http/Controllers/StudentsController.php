@@ -18,7 +18,7 @@ class StudentsController extends Controller
        $this->middleware('jwt.auth');
     }
     
-    public function dashboardStudentsByGradeClass($grade, $class)
+    public function dashboardStudentsByGradeClass($grade, $class, $termCode)
     {
         $classCode = GradeClassController::getClassCode($grade, $class);
 
@@ -28,18 +28,31 @@ class StudentsController extends Controller
                             DB::raw('SUM(performance.delta_score) as total_score'))
                         ->groupBy('performance.student_number')    
                         ->where('students.classCode', $classCode)
+                        ->where('term_code', $termCode)
                         ->get();
                         
         //dump($dashboard);
         if($dashboard)
         {
-            return response()->json(['status' => 'success', 'data' => $dashboard]);
+            $response = [
+                'message' => 'dashboard student successful',
+                'dashboard' => $dashboard,
+                'input' => [$grade, $class, $termCode]
+            ];
+            
+            $statusCode = 200;
         }
         else
         {
-            return response()->json(['status' => 'failure']);
+            $response = [
+                'message' => 'dashboard student failed',
+                'input' => [$grade, $class, $termCode]
+            ];
+            
+            $statusCode = 400;
         }
-        return $dashboard;
+        
+        return response()->json($response, $statusCode);
     }
     
     public function getStudentByGradeClass($grade, $class)
