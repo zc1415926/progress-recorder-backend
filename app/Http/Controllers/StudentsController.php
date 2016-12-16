@@ -18,7 +18,7 @@ class StudentsController extends Controller
        $this->middleware('jwt.auth');
     }
     
-    public function dashboardStudentsByGradeClass($grade, $class, $termCode)
+    public function dashboardStudent($grade, $class, $termCode)
     {
         $classCode = GradeClassController::getClassCode($grade, $class);
 
