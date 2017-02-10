@@ -22,17 +22,23 @@ class PerformanceTableSeeder extends Seeder
                 {
                     $classCode = (2016 - $i) . '0' . $j;
                     $termCodeArray = ['20150', '20151', '20160', '20161'];
-                    //give a student 1 to 4 record randomly
-                    $recordCount = rand(1, 4);
-                    for($l = 0; $l < $recordCount; $l++)
-                    {
-                        Performance::create([
-                            'delta_score' => rand(-10, 10),
-                            'comment' => str_random(rand(5, 20)),
-                            'student_number' => $classCode . '0' . $k,
-                            'term_code' => $termCodeArray[$recordCount-1]
-                        ]);
+                    
+                    foreach($termCodeArray as $termCode){
+                        
+                        //give a student 1 to 4 record randomly
+                        $recordCount = rand(1, 4);
+                        
+                        for($l = 0; $l < $recordCount; $l++)
+                        {
+                            Performance::create([
+                                'delta_score' => rand(-10, 10),
+                                'comment' => str_random(rand(5, 20)),
+                                'student_number' => $classCode . '0' . $k,
+                                'term_code' => $termCode
+                            ]);
+                        }
                     }
+                    
                     
                 }
             }
