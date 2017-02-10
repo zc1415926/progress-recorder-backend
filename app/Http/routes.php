@@ -121,11 +121,6 @@ Route::post('auth/authenticate', [
     'uses'       => 'AuthenticateController@authenticate'
 ]);
 
-Route::post('auth/student', [
-    'middleware' => 'cors',
-    'uses'       => 'AuthenticateController@student'
-]);
-
 Route::get('auth/getUserFromToken', [
     'middleware' => 'cors',
     'uses'       => 'AuthenticateController@getUserFromToken'

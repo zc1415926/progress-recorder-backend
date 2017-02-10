@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use JWTAuth;
 use Tymon\JWTAuthExceptions\JWTException;
 use App\User;
-use App\Students;
+//use App\Students;
 use Illuminate\Support\Facades\Log;
 use Hash;
 
@@ -48,31 +48,10 @@ class AuthenticateController extends Controller
             return response()->json(['error' => 'could_not_create_token'], 500);
         }
 
-        // if no errors are encountered we can return a JWT
-        return response()->json(compact('token'));
-    }
-    
-    //student auth by student_number and student_number
-    public function student(Request $request)
-    {
-        $credentials = $request->only('username', 'password');
-       
-        if($credentials['username'] == $credentials['password']){
-            
-            $student = Students::where('student_number', $credentials['username'])->get();
-            
-            if($student){
-                $token = Hash::make($credentials['username']);
-            }else{
-                return response()->json(['error' => 'invalid_credentials'], 401);
-            }
-        }else{
-            return response()->json(['error' => 'invalid_credentials'], 401);
-        }
-            
-        $student = ['token' => $token];
+        $role = User::select('role')->where('username', $credentials['username'])->get();
+        $role = $role[0]->role;
         
-        return response()->json(compact('student'));
+        return response()->json(compact('role','token'));
     }
     
     public function getUserFromToken(Request $request)
